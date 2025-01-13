@@ -130,7 +130,6 @@ a:hover {
     background: #ff00ff;
     color: #ffffff;
     border-color: #ff00ff;
-    color: ;
     text-shadow:
         0 0 10px rgba(255, 255, 255, 0.8),
         0 0 20px rgba(255, 0, 255, 0.5);
@@ -344,4 +343,13 @@ footer {
 iframe {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    iframe {
+        width: 100%;
+        height: auto;
+        /* Maintain aspect ratio */
+    }
 }
