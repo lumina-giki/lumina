@@ -10,20 +10,62 @@ body {
     scroll-behavior: smooth;
     overscroll-behavior: contain;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Background */
+/* Enhanced Background */
 body {
-    background: radial-gradient(circle at top left, #1a1a1a, #0d0d0d) fixed;
+    background:
+        linear-gradient(to right, rgba(13, 13, 13, 0.9), rgba(26, 26, 26, 0.9)),
+        radial-gradient(circle at 0% 0%, rgba(0, 255, 255, 0.15), transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(255, 0, 255, 0.15), transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(0, 255, 255, 0.15), transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(255, 0, 255, 0.15), transparent 50%),
+        linear-gradient(45deg, #0d0d0d, #1a1a1a);
+    background-attachment: fixed;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        repeating-linear-gradient(transparent,
+            transparent 2px,
+            rgba(0, 255, 255, 0.03) 3px,
+            rgba(0, 255, 255, 0.03) 4px);
+    pointer-events: none;
+    z-index: 1;
+    animation: scanline 10s linear infinite;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100vh);
+    }
 }
 
 /* Layout */
 section {
     margin: 0;
     padding: 80px 0;
+    position: relative;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 2;
 }
 
 section>div,
@@ -40,27 +82,42 @@ footer {
 
 main {
     flex-grow: 1;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
 }
 
 /* Header */
 header {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px 20px;
-    height: 65px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 255, 255, 0.1);
     border-radius: 0 0 10px 10px;
     margin: 0 20px;
+    width: auto;
+    min-height: 60px;
+    border: 1px solid rgba(0, 255, 255, 0.1);
 }
 
 header img {
-    width: 180px;
+    width: 140px;
     height: auto;
+}
+
+header nav {
+    display: flex;
+    align-items: center;
 }
 
 header nav ul {
@@ -69,10 +126,11 @@ header nav ul {
     gap: 20px;
     margin: 0;
     padding: 0;
+    align-items: center;
 }
 
 header nav ul li {
-    display: inline;
+    display: flex;
 }
 
 /* Typography */
@@ -89,6 +147,7 @@ a {
     color: #00ffff;
     transition: all 0.3s ease;
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    white-space: nowrap;
 }
 
 a:hover {
@@ -142,41 +201,40 @@ a:hover {
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
 }
 
-/* Welcome Section */
+/* Sections */
 #home {
     text-align: center;
     padding: 100px 20px;
-    background: linear-gradient(45deg, #0d0d0d, #1a1a1a);
 }
 
 #home h1 {
-    font-size: 3rem;
+    font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 20px;
 }
 
-/* Categories Section */
 #categories {
     padding: 50px 20px;
     text-align: center;
-    background: #141414;
 }
 
 #categories h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin-bottom: 30px;
 }
 
 #categories .category-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 0 20px;
+    gap: 60px 30px;
+    padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 #categories .category-card {
-    background: #0d0d0d;
+    background: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     padding: 20px;
     border: 2px solid transparent;
     border-radius: 10px;
@@ -214,11 +272,10 @@ a:hover {
 #about {
     padding: 50px 20px;
     text-align: center;
-    background: linear-gradient(45deg, #1a1a1a, #141414);
 }
 
 #about h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin-bottom: 20px;
 }
 
@@ -232,11 +289,10 @@ a:hover {
 #contact {
     padding: 50px 20px;
     text-align: center;
-    background: #141414;
 }
 
 #contact h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin-bottom: 30px;
 }
 
@@ -259,7 +315,9 @@ a:hover {
 #contact textarea {
     padding: 12px;
     border: 2px solid #00ffff;
-    background: #0d0d0d;
+    background: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     color: #e0e0e0;
     border-radius: 5px;
     transition: all 0.3s ease;
@@ -302,32 +360,55 @@ a:hover {
 
 /* Footer */
 footer {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 20px;
     text-align: center;
     margin-top: auto;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 -2px 5px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(0, 255, 255, 0.1);
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    position: relative;
+    z-index: 2;
 }
 
-/* Media Queries for Responsiveness */
+/* Performance optimizations */
+* {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000;
+}
+
+/* Media Queries */
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+        padding: 10px 15px;
+    }
+
+    header img {
+        width: 120px;
     }
 
     header nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #home h1 {
-        font-size: 2rem;
+        gap: 15px;
     }
 
     .category-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    header nav ul {
+        gap: 10px;
+    }
+
+    header nav ul li a {
+        font-size: 0.9rem;
+        padding: 8px 12px;
     }
 }
 
