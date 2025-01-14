@@ -10,6 +10,25 @@
 </head>
 
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="scanner"></div>
+        <div class="loading-percentage">
+            <script>
+                let count = 0;
+                const percentage = document.querySelector('.loading-percentage');
+                const interval = setInterval(() => {
+                    count = Math.min(99, count + Math.floor(Math.random() * 10));
+                    percentage.textContent = count + '%';
+                    if (count >= 99) clearInterval(interval);
+                }, 100);
+            </script>
+        </div>
+        <div class="loading-text">Please Wait</div>
+    </div>
+
+    <!--   q````````````````````` -->
+
     <header>
         <img src="images/logo.png" alt="Lumina Logo">
         <nav>
