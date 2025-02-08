@@ -7,28 +7,29 @@
     <title>Lumina - Learning Resource Aggregator</title>
     <link rel="shortcut icon" href="images/logo.png">
     <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <!-- Loading Screen -->
     <div class="loading-screen">
         <div class="scanner"></div>
-        <div class="loading-percentage">
-            <script>
-                let count = 0;
-                const percentage = document.querySelector('.loading-percentage');
-                const interval = setInterval(() => {
-                    count = Math.min(99, count + Math.floor(Math.random() * 10));
-                    percentage.textContent = count + '%';
-                    if (count >= 99) clearInterval(interval);
-                }, 100);
-            </script>
-        </div>
+        <div class="loading-percentage">0%</div>
         <div class="loading-text">Please Wait</div>
     </div>
 
-    <!--   q````````````````````` -->
+    <!-- Popup Message -->
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <h2>Announcement!</h2>
+            <p>ES111 Assignment Has been Uploaded to Google Classroom.
+                DEADLINE: 17 February
+            </p>
+            <button class="close-popup">Get Started</button>
+        </div>
+    </div>
 
+    <!-- Header -->
     <header>
         <img src="images/logo.png" alt="Lumina Logo">
         <nav>
@@ -40,55 +41,93 @@
         </nav>
     </header>
 
-    <section id="home">
-        <div class="welcome">
-            <h1>Empower Your Coding Journey</h1>
-            <p>The Learning Resource Aggregator is your gateway to top-notch learning materials.</p>
-            <a href="#categories" class="btn">Explore Resources</a>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main>
+        <!-- Home Section -->
+        <section id="home">
+            <div class="welcome">
+                <h1>Empower Your Coding Journey</h1>
+                <p>The Learning Resource Aggregator is your gateway to top-notch learning materials.</p>
+                <a href="#categories" class="btn">Explore Resources</a>
+            </div>
+        </section>
 
-    <section id="categories">
-        <h2>Categories</h2>
-        <div class="category-grid">
-            <div class="category-card">
-                <h3>GIKI Notes</h3>
-                <p>Exclusive notes for GIKI students.</p>
-                <a href="giki.html" class="btn">Explore</a>
+        <!-- Categories Section -->
+        <section id="categories">
+            <h2>Categories</h2>
+            <div class="category-grid">
+                <div class="category-card">
+                    <h3>GIKI Notes</h3>
+                    <p>Exclusive notes for GIKI students.</p>
+                    <a href="giki.html" class="btn">Explore</a>
+                </div>
+                <div class="category-card">
+                    <h3>Algorithms</h3>
+                    <p>Master problem-solving with these algorithm resources.</p>
+                    <a href="#" class="btn lock">Coming Soon 🔒</a>
+                </div>
+                <div class="category-card">
+                    <h3>Data Structures</h3>
+                    <p>Understand the building blocks of programming.</p>
+                    <a href="#" class="btn lock">Coming Soon 🔒</a>
+                </div>
+                <div class="category-card">
+                    <h3>Web Development</h3>
+                    <p>Start building stunning websites and applications.</p>
+                    <a href="#" class="btn lock">Coming Soon 🔒</a>
+                </div>
+                <div class="category-card">
+                    <h3>Machine Learning</h3>
+                    <p>Dive into AI and data science with ML tutorials.</p>
+                    <a href="#" class="btn lock">Coming Soon 🔒</a>
+                </div>
             </div>
-            <div class="category-card">
-                <h3>Algorithms</h3>
-                <p>Master problem-solving with these algorithm resources.</p>
-                <a href="#" class="btn lock">Coming Soon 🔒</a>
-            </div>
-            <div class="category-card">
-                <h3>Data Structures</h3>
-                <p>Understand the building blocks of programming.</p>
-                <a href="#" class="btn lock">Coming Soon 🔒</a>
-            </div>
-            <div class="category-card">
-                <h3>Web Development</h3>
-                <p>Start building stunning websites and applications.</p>
-                <a href="#" class="btn lock">Coming Soon 🔒</a>
-            </div>
-            <div class="category-card">
-                <h3>Machine Learning</h3>
-                <p>Dive into AI and data science with ML tutorials.</p>
-                <a href="#" class="btn lock">Coming Soon 🔒</a>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>We are dedicated to helping students find the best free resources to enhance their learning experience. Our
-            mission is to simplify the journey for aspiring developers and engineers by providing curated and reliable
-            content.</p>
-    </section>
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We are dedicated to helping students find the best free resources to enhance their learning experience.
+                Our
+                mission is to simplify the journey for aspiring developers and engineers by providing curated and
+                reliable
+                content.</p>
+        </section>
+    </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Lumina. All rights reserved.</p>
     </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Loading screen and popup logic
+        let count = 0;
+        const percentage = document.querySelector('.loading-percentage');
+        const loadingScreen = document.querySelector('.loading-screen');
+        const popupOverlay = document.querySelector('.popup-overlay');
+
+        const interval = setInterval(() => {
+            count = Math.min(99, count + Math.floor(Math.random() * 10));
+            percentage.textContent = count + '%';
+            if (count >= 99) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    percentage.textContent = '100%';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        popupOverlay.style.display = 'flex';
+                    }, 500);
+                }, 200);
+            }
+        }, 100);
+
+        // Close popup when button is clicked
+        document.querySelector('.close-popup').addEventListener('click', () => {
+            popupOverlay.style.display = 'none';
+        });
+    </script>
 </body>
 
 </html>
